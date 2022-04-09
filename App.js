@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
+import MainNavigator from "./navigation";
+
+import store from "./store";
+import { Provider } from "react-redux";
+import { init } from "./db";
+
+init()
+  .then(() => {
+    console.log("Database initialized");
+  })
+  .catch((err) => {
+    console.log("Database failed to connect");
+    console.log(err.message);
+  });
 
 export default function App() {
+  const [loaded] = useFonts({
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+    PoppinsMedium: require("./assets/fonts/Poppins-Medium.ttf"),
+  });
+
+  if (!loaded) return <AppLoading />;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <MainNavigator />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
