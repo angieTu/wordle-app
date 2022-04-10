@@ -49,9 +49,9 @@ const KeyboardRow = ({ letters }) => {
             style={{
               ...styles.key,
               backgroundColor:
-                (letter.state === "success" && "green") ||
-                (letter.state === "almost" && "orange") ||
-                (letter.state === "none" && "grey") ||
+                (letter.state === "success" && "#6aaa64") ||
+                (letter.state === "almost" && "#c9b458") ||
+                (letter.state === "none" && "#787c7e") ||
                 "#d3d6da",
             }}
           >

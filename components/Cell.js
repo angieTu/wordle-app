@@ -7,9 +7,9 @@ const Cell = ({ letter, state, page }) => {
       style={{
         ...styles.cell,
         backgroundColor:
-          (state === "success" && "green") ||
-          (state === "almost" && "orange") ||
-          (state === "none" && "grey"),
+          (state === "success" && "#6aaa64") ||
+          (state === "almost" && "#c9b458") ||
+          (state === "none" && "#787c7e"),
       }}
     >
       <Text style={styles.text}>{page === "game" ? letter : ""}</Text>

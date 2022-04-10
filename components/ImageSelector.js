@@ -35,6 +35,30 @@ const ImageSelector = ({ onImageSelected }) => {
     setPickedUri(image.uri);
     onImageSelected(image.uri);
   };
+  const verifyPermissionsImage = async () => {
+    const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (granted) {
+      return true;
+    }
+
+    Alert.alert(
+      "Permisos insuficientes",
+      "Necesita otorgar permisos de la galeria",
+      [{ text: "Ok" }]
+    );
+
+    return false;
+  };
+  const openImagePickerAsync = async () => {
+    const isCameraOk = await verifyPermissionsImage();
+    if (!isCameraOk) return;
+
+    const image = await ImagePicker.launchImageLibraryAsync();
+
+    setPickedUri(image.uri);
+    onImageSelected(image.uri);
+  };
 
   return (
     <View style={styles.container}>
@@ -46,6 +70,7 @@ const ImageSelector = ({ onImageSelected }) => {
         )}
       </View>
       <Button onPress={handleTakeImage} title="Tomar foto"></Button>
+      <Button onPress={openImagePickerAsync} title="Abrir galeria"></Button>
     </View>
   );
 };
